@@ -19,7 +19,7 @@
 
 {% block content %}
   <!-- Intro -->
-  <div class="full-screen" id="intro">
+  <div class="min-vh-100" id="intro">
     <div class="container"> 
       <div class="d-flex flex-column pt-5">
         <div class="fw-bold main-title pt-5 mb-3">Instances</div>
@@ -29,7 +29,7 @@
           laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
         </div>
         <div class="d-flex justify-content-start">
-          <button type="button" class="btn btn-lg btn-secondary button-font fs-5">Explore!</button>
+          <a type="button" class="btn btn-lg btn-secondary button-font fs-5" href="#list-instances">Explore!</a>
           <button type="button" class="btn btn-lg btn-outline-secondary ms-3 button-font fs-5" data-bs-toggle="modal" data-bs-target="#modal-form">Create</button>
         </div>
       </div>
@@ -45,18 +45,64 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+          <div class="row">
+            <div class="col col-lg-6">
+              <div class="d-flex flex-column">
+                <div>
+                  <div class="btn-group mb-3" style="width: 100%;">
+                    <button class="btn btn-secondary dropdown-toggle subtitle"  type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                      Select Pattern
+                    </button>
+                    <ul class="dropdown-menu" style="width: 100%;">
+                      <li><div class="dropdown-header details text-dark fw-bolder">Class Completeness</div></li>
+                      <li><a class="dropdown-item details" href="#">Pattern 1</a></li>
+                      <li><a class="dropdown-item details" href="#">Pattern 2</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><div class="dropdown-header details text-dark fw-bolder">Entity Completeness</div></li>
+                      <li><a class="dropdown-item details" href="#">Pattern 3</a></li>
+                      <li><a class="dropdown-item details" href="#">Pattern N</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <textarea class="code" rows="15">
+hello
+                </textarea>
+              </div>
+            </div>
+            <div class="col col-lg-6">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label subtitle">Instance Name</label>
+                <input type="text" class="form-control subtitle text-secondary" placeholder="name@example.com">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label subtitle">Example textarea</label>
+                <textarea class="form-control code" rows="15"></textarea>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Create</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- List of Instances -->
-  <div class="full-screen" id="list-instances">
-    Under Construction
+  <div class="min-vh-100" id="list-instances">
+    <div class="container py-5">
+      <div class="heading text-center pt-5 mb-3">Explore by Search here.</div>
+
+      <!-- source: https://mdbootstrap.com/docs/standard/forms/search/#:~:text=Bootstrap%205%20Search%20component,select%2C%20sidenav%20and%20many%20more. -->
+      <div class="input-group rounded d-flex align-items-center px-5">
+        <input type="search" class="form-control rounded-pill border-dark subtitle text-secondary px-3 py-2 me-3" placeholder="Search favorable instance" aria-label="Search" aria-describedby="search-addon" />
+        <button class="btn btn-white">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 {% endblock content %}
