@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>SoCK | Pattern</title>
+{% endblock meta %}
+
+{% block navbar %}
+  <li class="nav-item">
+    <a class="nav-link navbar-font mx-2"  href="{% url 'main:home' %}">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active navbar-font mx-2" aria-current="page" href="#">Patterns</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link navbar-font mx-2" href="#">Instances</a>
+  </li>
+{% endblock navbar %}
+
+{% block content %}
+  <button type="button" onclick="topFunction()" class="btn btn-secondary back-to-top" id="back-to-top" style="position: fixed; bottom: 1.5rem; right: 1.5rem; display: none;">
+    ↑
+  </button>
+
+  <!-- Intro -->
+  <div class="full-screen" id="intro">
+    <div class="container"> 
+      <div class="d-flex flex-column pt-5">
+        <div class="fw-bold main-title pt-5 mb-3">Pattern</div>
+        <div class="subtitle mb-5">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border border-dark rounded">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse d-flex justify-content-evenly">
+              <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a href="#pattern-01" class="nav-link navbar-font text-center m-2">Class Completeness</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link navbar-font text-center m-2">Entity Completeness</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link navbar-font text-center m-2">Population Completeness</a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link navbar-font text-center m-2">Label & Desc Completeness</a>
+                </li>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Pattern -->
+  <div class="full-screen py-5" id="pattern-01">
+    <div class="container"> 
+      <div class="d-flex flex-column pt-5">
+        <div class="heading">Completeness for Class Properties</div>
+        <hr class="shadow">
+        <div class="subtitle text-justify mb-5">
+          Sejauh mana entitas pada KG memiliki property-property yang diwajibkan untuk suatu class. 
+          Misalnya pada class manusia, entitasnya mesti punya jenis kelamin, golongan darah, dsb. 
+          Secara umum, untuk suatu class, jika property A, B, C, & D ada semua, maka entitas tersebut 
+          dianggap lengkap.
+        </div>
+        <table class="table table-hover table-striped table-responsive">
+          <thead>
+            <tr>
+              <th scope="col" class="col-1 subtitle fw-bold text-center">Code</th>
+              <th scope="col" class="col-5 subtitle fw-bold text-center">SHACL Pattern</th>
+              <th scope="col" class="col-6 subtitle fw-bold text-center">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="details fw-bold text-center">1</th>
+              <td class="code">
+                <textarea style="width: 100%; resize: none;" rows="12" readonly>
+%% SHAPE-NAME %% a sh:NodeShape;
+    sh:targetClass %% CLASS %% ;
+    sh:property %% PROPERTY-SHAPE-NAME-01 %%, %% PROPERTY-SHAPE-NAME-02 %%, %% PROPERTY-SHAPE-NAME-NN %% .
+
+%% PROPERTY-SHAPE-NAME-01 %% a sh:PropertyShape ;
+    sh:path %% PROPERTY-01 %%  ;
+    sh:minCount 1 .
+
+%% PROPERTY-SHAPE-NAME-02 %% a sh:PropertyShape ;
+    sh:path %% PROPERTY-02 %%  ;
+    sh:minCount 1 .
+
+%% PROPERTY-SHAPE-NAME-NN %% a sh:PropertyShape ;
+    sh:path %% PROPERTY-NN %%  ;
+      sh:minCount 1 .              
+                </textarea>
+              </td>
+              <td class="details">
+                Cek keberadaan suatu property pada entitas sebagai instance dari suatu class secara umum (general).
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="details fw-bold text-center">2</th>
+              <td class="code">
+                <textarea style="width: 100%; resize: none;" rows="12" readonly>
+%% SHAPE-NAME %% a sh:NodeShape;
+    sh:targetClass %% CLASS-NAME %% ;
+    sh:property %% PROPERTY-SHAPE-NAME %% .
+
+%% PROPERTY-SHAPE-NAME %% a sh:PropertyShape ;
+    sh:path [ sh:alternativePath ( %% PROPERTY-PATH-01 %% %% PROPERTY-PATH-02 %% %% PROPERTY-PATH-NN %% ) ]  ;
+    sh:minCount 1 .                           
+                </textarea>
+              </td>
+              <td class="details">
+                Pattern untuk mengecek kardinalitas minimum dari suatu property pada suatu 
+                instance class yang ada di Wikidata KG. Class didefinisikan pada %% CLASS-URI  %% . 
+                Property-property yang diharuskan ada didefinisikan pada %% PROPERTY-01 %%, 
+                %% PROPERTY-02 %%, hingga %% PROPERTY-NN %% sesuai kebutuhan.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="details fw-bold text-center">3</th>
+              <td class="code">
+                <textarea style="width: 100%; resize: none;" rows="12" readonly>
+%% SHAPE-NAME %% a sh:NodeShape;
+    sh:targetClass %% CLASS-NAME %% ;
+    sh:property %% PROPERTY-SHAPE-NAME-01 %%, %% PROPERTY-SHAPE-NAME-02 %%, %% PROPERTY-SHAPE-NAME-NN %% .
+
+%% PROPERTY-SHAPE-NAME-01 %% a sh:PropertyShape ;
+    sh:path %% PROPERTY-01 %%  ;
+    sh:minCount %% VALUE-01 %% .
+
+%% PROPERTY-SHAPE-NAME-02 %% a sh:PropertyShape ;
+    sh:path %% PROPERTY-02 %%  ;
+    sh:minCount %% VALUE-02 %% .
+
+%% PROPERTY-SHAPE-NAME-NN %% a sh:PropertyShape ;
+    sh:path %% PROPERTY-NN %%  ;
+    sh:minCount %% VALUE-NN %% .              
+                </textarea>
+              </td>
+              <td class="details">
+                Cek kardinalitas minimum dari suatu property pada entitas sebagai instance dari 
+                suatu class. Nilai kardinalitas dari property diasosiasikan sebagai batas minimum 
+                untuk suatu entitas dikatakan komplet/lengkap.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block script %}
+  <script>
+    //Get the button:
+    topButton = document.getElementById("back-to-top");
+
+    // When the user scrolls down 900px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 550 || document.documentElement.scrollTop > 550) {
+        topButton.style.display = "block";
+      } else {
+        topButton.style.display = "none";
+      }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+  </script>
+{% endblock script %}

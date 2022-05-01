@@ -10,15 +10,11 @@
 }
 
 .heading {
-  font: bold 3rem "Poppins";
+  font: bold 2.5rem "Poppins";
 }
 
 .subtitle {
   font: normal 1.125rem "Inter";
-}
-
-.subtitle-bold {
-  font: bold 1.125rem "Inter";
 }
 
 .title {
@@ -36,6 +32,18 @@
 
 .button-font {
   font: bold 1.125rem "Inter";
+}
+
+.code {
+  font: normal 0.85rem "Jetbrains Mono"
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.text-indent {
+  text-indent: 0.25rem;
 }
 
 
@@ -59,6 +67,14 @@
 
 .navbar .navbar-nav .nav-item:hover::after {
   width: 100%;
+}
+
+
+/* Button */
+.back-to-top {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
 }
 
 
