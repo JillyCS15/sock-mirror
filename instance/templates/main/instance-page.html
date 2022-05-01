@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>SoCK | Pattern</title>
+{% endblock meta %}
+
+{% block navbar %}
+  <li class="nav-item">
+    <a class="nav-link navbar-font mx-2"  href="{% url 'main:home' %}">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link navbar-font mx-2" href="{% url 'pattern:pattern' %}">Patterns</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active navbar-font mx-2" aria-current="page" href="#">Instances</a>
+  </li>
+{% endblock navbar %}
+
+{% block content %}
+  <!-- Intro -->
+  <div class="full-screen" id="intro">
+    <div class="container"> 
+      <div class="d-flex flex-column pt-5">
+        <div class="fw-bold main-title pt-5 mb-3">Instances</div>
+        <div class="subtitle mb-5">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+        </div>
+        <div class="d-flex justify-content-start">
+          <button type="button" class="btn btn-lg btn-secondary button-font fs-5">Explore!</button>
+          <button type="button" class="btn btn-lg btn-outline-secondary ms-3 button-font fs-5" data-bs-toggle="modal" data-bs-target="#modal-form">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Form -->
+  <div class="modal fade" id="modal-form" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title subtitle fw-bold" id="exampleModalLabel">Create a New Instance</div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- List of Instances -->
+  <div class="full-screen" id="list-instances">
+    Under Construction
+  </div>
+{% endblock content %}
