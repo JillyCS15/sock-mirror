@@ -32,6 +32,14 @@
           ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
           laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
         </div>
+        {% if is_admin %}
+        <div class="btn btn-primary button-font d-flex align-self-start align-items-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>
+          <div class="button-font">Add New</div>
+        </div>
+      {% endif %}
         <nav class="navbar navbar-expand-lg navbar-light bg-light border border-dark rounded">
           <div class="container-fluid">
             <div class="collapse navbar-collapse d-flex justify-content-evenly">
@@ -63,12 +71,12 @@
         <div class="d-flex d-flex align-items-center">
           <div class="heading me-auto">Completeness for Class Properties</div>
           {% if is_admin %}
-            <div class="btn btn-primary button-font d-flex align-items-center">
+            <button type="button" class="btn btn-primary button-font d-flex align-items-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
               </svg>
-              <div class="button-font">Add New</div>
-            </div>
+              <div class="button-font" data-bs-toggle="modal" data-bs-target="#modal-form">Add New</div>
+            </button>
           {% endif %}
         </div>
         <hr class="shadow">
@@ -206,6 +214,38 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Form -->
+  <div class="modal fade" id="modal-form" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title subtitle fw-bold" id="exampleModalLabel">Create a New SHACL Pattern</div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <div class="mb-3">
+              <label class="form-label details text-dark fw-bolder">Code</label>
+              <input type="text" class="form-control details text-secondary">
+            </div>
+            <div class="mb-3">
+              <label class="form-label details text-dark fw-bolder">Description</label>
+              <textarea class="form-control details text-secondary" rows="4"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label details text-dark fw-bolder">SHACL Pattern</label>
+              <textarea class="form-control details text-secondary" rows="10"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger button-font" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary button-font">Create</button>
+        </div>
       </div>
     </div>
   </div>
