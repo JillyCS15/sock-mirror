@@ -64,26 +64,27 @@
                     </ul>
                   </div>
                 </div>
-                <textarea class="code" rows="15">
+                <!-- <textarea class="code" rows="15">
 hello
-                </textarea>
+                </textarea> -->
               </div>
             </div>
             <div class="col col-lg-6">
               <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label details text-dark fw-bolder">Instance Name</label>
+                <label class="form-label details text-dark fw-bolder">Instance Name</label>
                 <input type="text" class="form-control details text-secondary" placeholder="name@example.com">
               </div>
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label details text-dark fw-bolder">Example textarea</label>
+                <label class="form-label details text-dark fw-bolder mb-1">Example textarea</label>
+                <div class="details text-secondary mb-2">Press <b>Shift</b> + <b>Tab</b> for indentation</div>
                 <textarea class="form-control code" rows="15"></textarea>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Create</button>
+          <button type="button" class="btn btn-outline-danger button-font" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary button-font">Create</button>
         </div>
       </div>
     </div>
@@ -108,5 +109,20 @@ hello
 {% endblock content %}
 
 {% block script %}
+  <script>
+    const textarea = document.querySelector('textarea')
 
+    textarea.addEventListener('keydown', (e) => {
+      if (e.shiftKey && e.keyCode == 9) {
+        e.preventDefault()
+
+        textarea.setRangeText(
+          '  ',
+          textarea.selectionStart,
+          textarea.selectionStart,
+          'end'
+        )
+      }
+    })
+  </script>
 {% endblock script %}
