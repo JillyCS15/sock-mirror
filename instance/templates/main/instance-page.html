@@ -23,10 +23,8 @@
     <div class="container"> 
       <div class="d-flex flex-column pt-5">
         <div class="fw-bold main-title pt-5 mb-3">Instances</div>
-        <div class="subtitle mb-5">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
-          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+        <div class="subtitle mb-5 text-justify">
+          {% lorem %}
         </div>
         <div class="d-flex justify-content-start">
           <a type="button" class="btn btn-lg btn-secondary button-font fs-5" href="#list-instances">Explore!</a>
@@ -55,7 +53,7 @@
                     </button>
                     <ul class="dropdown-menu" style="width: 100%;">
                       <li><div class="dropdown-header details text-dark fw-bolder">Class Completeness</div></li>
-                      <li><a class="dropdown-item details" href="#">Pattern 1</a></li>
+                      <li><a class="dropdown-item details" onclick="change_text('Test\tTest')">Pattern 1</a></li>
                       <li><a class="dropdown-item details" href="#">Pattern 2</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><div class="dropdown-header details text-dark fw-bolder">Entity Completeness</div></li>
@@ -77,7 +75,7 @@ hello
               <div class="mb-3">
                 <label class="form-label details text-dark fw-bolder mb-1">Example textarea</label>
                 <div class="details text-secondary mb-2">Press <b>Shift</b> + <b>Tab</b> for indentation</div>
-                <textarea class="form-control code" rows="15"></textarea>
+                <textarea class="form-control code" id="shacl-text" rows="15"></textarea>
               </div>
             </div>
           </div>
@@ -96,7 +94,7 @@ hello
       <div class="heading text-center pt-5 mb-3">Explore by Search here.</div>
 
       <!-- source: https://mdbootstrap.com/docs/standard/forms/search/#:~:text=Bootstrap%205%20Search%20component,select%2C%20sidenav%20and%20many%20more. -->
-      <div class="input-group rounded d-flex align-items-center px-5">
+      <div class="input-group rounded d-flex align-items-center px-5 mb-5">
         <input type="search" class="form-control rounded-pill border-dark subtitle text-secondary px-3 py-2 me-3" placeholder="Search favorable instance" aria-label="Search" aria-describedby="search-addon" />
         <button class="btn btn-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -104,25 +102,55 @@ hello
           </svg>
         </button>
       </div>
+
+      <!-- Result -->
+      <div class="card p-4">
+        <div class="card-body row p-0 mb-3">
+          <div class="col col-lg-10">
+            <div class="subtitle fw-bolder mb-2">Dummy Instance</div>
+            <div class="details text-truncate pe-5 mb-2">
+              {% lorem %}
+            </div>
+            <span class="badge rounded-pill bg-warning text-dark mb-2">Class Completeness</span>
+          </div>
+          <div class="col col-lg-2 d-flex justify-content-center align-self-center">
+            <button class="btn btn-primary button-font" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+              Details
+            </button>
+          </div>
+        </div>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body bg-light">
+            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock content %}
 
 {% block script %}
   <script>
-    const textarea = document.querySelector('textarea')
+    // source: https://benborgers.com/posts/textarea-tab
+    const textarea = document.getElementById('shacl-text')
 
     textarea.addEventListener('keydown', (e) => {
       if (e.shiftKey && e.keyCode == 9) {
         e.preventDefault()
 
         textarea.setRangeText(
-          '  ',
+          '\t',
           textarea.selectionStart,
           textarea.selectionStart,
           'end'
         )
       }
     })
+
+    // TODO: copy pattern to textarea
+    const change_text = (val) => {
+      console.log("masuk :)")
+      textarea.value = val;
+    }
   </script>
 {% endblock script %}
