@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>SoCK | Use Cases</title>
+{% endblock meta %}
+
+{% block navbar %}
+  <li class="nav-item">
+    <a class="nav-link navbar-font mx-2"  href="{% url 'main:home' %}">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link navbar-font mx-2" href="{% url 'pattern:pattern' %}">Patterns</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link navbar-font mx-2" href="{% url 'instance:instance' %}">Instances</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active navbar-font mx-2" aria-current="page" href="#">Use Cases</a>
+  </li>
+{% endblock navbar %}
+
+{% block content %}
+  <!-- Intro -->
+  <div class="min-vh-100" id="intro">
+    <div class="container p-5"> 
+			<div class="d-flex flex-column ">
+				<div class="fw-bold main-title pt-5">Use Cases</div>
+				<div class="subtitle mb-5 text-justify">
+					{% lorem %}
+				</div>
+				<iframe class="align-self-center" src="#" width="600" height="400"></iframe>
+			</div>
+    </div>
+  </div>
+{% endblock content %}

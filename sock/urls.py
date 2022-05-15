@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('main.urls')),
     path('pattern', include('pattern.urls')),
     path('instance', include('instance.urls')),
+    path('usecase', include('usecase.urls')),
 ]

@@ -15,6 +15,9 @@
   <li class="nav-item">
     <a class="nav-link active navbar-font mx-2" aria-current="page" href="#">Instances</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link navbar-font mx-2" href="{% url 'usecase:usecase' %}">Use Cases</a>
+  </li>
 {% endblock navbar %}
 
 {% block content %}
@@ -22,7 +25,7 @@
   <div class="min-vh-100" id="intro">
     <div class="container"> 
       <div class="d-flex flex-column pt-5">
-        <div class="fw-bold main-title pt-5 mb-3">Instances</div>
+        <div class="fw-bold main-title pt-5">Instances</div>
         <div class="subtitle mb-5 text-justify">
           {% lorem %}
         </div>

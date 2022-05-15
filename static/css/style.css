@@ -1,4 +1,7 @@
 /* Project-wide style */
+body {
+  min-height: 100vh;
+}
 
 /* Fonts */
 .main-title {
