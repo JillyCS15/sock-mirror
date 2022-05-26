@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import ClassPattern, SHACLPattern
 
 
@@ -20,3 +21,11 @@ def pattern_page(request):
         "patterns": result_list,
         }
     return render(request, 'main/pattern-page.html', context)
+
+
+def delete_shacl_pattern(request, shacl_pattern_id):
+    shacl_pattern = SHACLPattern.objects.get(id=shacl_pattern_id)
+    message = f"{shacl_pattern.pattern_class.name} with ID {shacl_pattern.code} has been deleted."
+    shacl_pattern.delete()
+    messages.error(request, message)
+    return redirect('pattern:pattern')
