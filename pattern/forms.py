@@ -29,7 +29,6 @@ class SHACLPatternForm(ModelForm):
 
         widgets = {
             'pattern': forms.Select(attrs={
-                'maxlength': 10,
                 'class': 'form-control details text-secondary',
                 }),            
             'code': forms.TextInput(attrs={

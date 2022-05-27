@@ -161,7 +161,12 @@
         <form action="{% url 'pattern:add-class-pattern' %}" method=POST>
           {% csrf_token %}
           <div class="modal-body">
-            {{ class_pattern_form.as_p }}
+            {% for field in class_pattern_form %}
+              <div class="mb-3">
+                <label class="form-label details text-dark fw-bolder">{{ field.label }}</label>
+                {{ field }}
+              </div>
+            {% endfor %}
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-danger button-font" data-bs-dismiss="modal">Cancel</button>
@@ -184,7 +189,12 @@
         <div class="modal-body">
           <form action="{% url 'pattern:add-shacl-pattern' %}" method=POST>
             {% csrf_token %}
-            {{ shacl_pattern_form.as_p }}
+            {% for field in shacl_pattern_form %}
+              <div class="mb-3 d-flex flex-column">
+                <label class="form-label details text-dark fw-bolder">{{ field.label }}</label>
+                {{ field }}
+              </div>
+            {% endfor %}
             <div class="d-flex">
               <button type="button" class="btn btn-outline-danger button-font me-auto" data-bs-dismiss="modal">Cancel</button>
               <input type="submit" value="Create" class="btn btn-primary button-font" />
