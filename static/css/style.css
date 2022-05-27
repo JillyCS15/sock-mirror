@@ -109,3 +109,7 @@ textarea {
   resize: none;
 }
 
+.modal {
+  overflow-y: auto !important;
+}
+

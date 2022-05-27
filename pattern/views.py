@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ClassPatternForm
+from .forms import ClassPatternForm, SHACLPatternForm
 from .models import ClassPattern, SHACLPattern
 
 
@@ -17,13 +17,15 @@ def pattern_page(request):
         shacl_pattern = SHACLPattern.objects.filter(pattern_class_id=pattern.id)
         result_list.append([pattern, shacl_pattern])
 
-    # Get a Class Pattern Form
+    # Get Pattern Forms
     class_pattern_form = ClassPatternForm
+    shacl_pattern_form = SHACLPatternForm
 
     context = {
         "is_admin": is_admin,
         "patterns": result_list,
         "class_pattern_form": class_pattern_form,
+        "shacl_pattern_form": shacl_pattern_form
         }
     return render(request, 'main/pattern-page.html', context)
 
@@ -31,6 +33,20 @@ def pattern_page(request):
 def add_class_pattern(request):
     if request.method == "POST":
         form = ClassPatternForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = "Successfully created a new class pattern."
+            messages.success(request, message)
+            return redirect('pattern:pattern')
+        message = "There is an error in data input."
+        messages.error(request, message)
+        return redirect('pattern:pattern')
+    return redirect('pattern:pattern')
+
+
+def add_shacl_pattern(request):
+    if request.method == "POST":
+        form = SHACLPatternForm(request.POST)
         if form.is_valid():
             form.save()
             message = "Successfully created a new class pattern."
