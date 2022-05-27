@@ -108,8 +108,3 @@ textarea {
   width: 100%;
   resize: none;
 }
-
-.modal {
-  overflow-y: auto !important;
-}
-
