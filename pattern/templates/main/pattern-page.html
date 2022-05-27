@@ -34,12 +34,18 @@
           {% lorem %}
         </div>
         {% if is_admin %}
-        <div class="btn btn-primary button-font d-flex align-self-start align-items-center mb-5">
+        <!-- <div class="btn btn-primary button-font d-flex align-self-start align-items-center mb-5">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
           </svg>
-          <div class="button-font">Add New</div>
-        </div>
+          <div class="button-font">Add Pattern</div>
+        </div> -->
+        <a type="button" class="btn btn-primary button-font d-flex align-self-start align-items-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>
+          <div class="button-font" data-bs-toggle="modal" data-bs-target="#modal-form-class">Add Pattern</div>
+        </a>
       {% endif %}
         <nav class="navbar navbar-expand-lg navbar-light bg-light border border-dark rounded">
           <div class="container-fluid">
@@ -68,12 +74,12 @@
           <div class="d-flex d-flex align-items-center pt-5">
             <div class="heading me-auto">{{ pattern.0.name }}</div>
             {% if is_admin %}
-              <button type="button" class="btn btn-primary button-font d-flex align-items-center">
+              <a type="button" class="btn btn-primary button-font d-flex align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
-                <div class="button-font" data-bs-toggle="modal" data-bs-target="#modal-form">Add New</div>
-              </button>
+                <div class="button-font" data-bs-toggle="modal" data-bs-target="#modal-form">Add</div>
+              </a>
             {% endif %}
           </div>
           <hr class="shadow">
@@ -132,6 +138,7 @@
   </div>
 
   <!-- Message -->
+  <div class="d-flex justify-content-center mt-5 pt-5">
   {% if messages %}
     {% for message in messages %}
     <div class="alert {{ message.tags }} alert-dismissible fade show fixed-bottom px-5" role="alert">
@@ -141,8 +148,32 @@
     </div>
     {% endfor %}
   {% endif %}
+  </div>
 
-  <!-- Modal Form -->
+  <!-- Modal Form | Add New Class Pattern -->
+  <div class="modal fade" id="modal-form-class" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title subtitle fw-bold" id="exampleModalLabel">Create a New Class Pattern</div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'pattern:add-class-pattern' %}" method=POST>
+          {% csrf_token %}
+          <div class="modal-body">
+            {{ class_pattern_form.as_p }}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger button-font" data-bs-dismiss="modal">Cancel</button>
+            <input type="submit" value="Create" class="btn btn-primary button-font" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Form | Add New SHACL Pattern -->
   <div class="modal fade" id="modal-form" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">

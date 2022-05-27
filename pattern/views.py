@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from .forms import ClassPatternForm
 from .models import ClassPattern, SHACLPattern
 
 
@@ -16,11 +17,37 @@ def pattern_page(request):
         shacl_pattern = SHACLPattern.objects.filter(pattern_class_id=pattern.id)
         result_list.append([pattern, shacl_pattern])
 
+    # Get a Class Pattern Form
+    class_pattern_form = ClassPatternForm
+
     context = {
         "is_admin": is_admin,
         "patterns": result_list,
+        "class_pattern_form": class_pattern_form,
         }
     return render(request, 'main/pattern-page.html', context)
+
+
+def add_class_pattern(request):
+    if request.method == "POST":
+        form = ClassPatternForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = "Successfully created a new class pattern."
+            messages.success(request, message)
+            return redirect('pattern:pattern')
+        message = "There is an error in data input."
+        messages.error(request, message)
+        return redirect('pattern:pattern')
+    return redirect('pattern:pattern')
+
+
+def delete_class_pattern(request, class_pattern_id):
+    class_pattern = ClassPattern.objects.get(id=class_pattern_id)
+    message = f"{class_pattern.name} has been deleted."
+    class_pattern.delete()
+    messages.error(request, message)
+    return redirect('pattern:pattern')
 
 
 def delete_shacl_pattern(request, shacl_pattern_id):
