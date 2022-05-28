@@ -12,10 +12,10 @@ class ClassPatternForm(ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={
                 'maxlength': 50,
-                'class': 'form-control details text-secondary',
+                'class': 'form-control details text-dark',
                 }),
             'description': forms.Textarea(attrs={
-                'class': 'form-control details text-secondary',
+                'class': 'form-control details text-dark',
                 'row': 4,
                 }),
         }
@@ -29,18 +29,18 @@ class SHACLPatternForm(ModelForm):
 
         widgets = {
             'pattern_class': forms.Select(attrs={
-                'class': 'form-select details text-secondary',
+                'class': 'form-select details text-dark',
                 }),            
             'code': forms.TextInput(attrs={
                 'maxlength': 10,
-                'class': 'form-control details text-secondary',
+                'class': 'form-control details text-dark',
                 }),
             'description': forms.Textarea(attrs={
-                'class': 'form-control details text-secondary',
+                'class': 'form-control details text-dark',
                 'row': 4,
                 }),
             'shacl_pattern': forms.Textarea(attrs={
-                'class': 'form-control details text-secondary',
+                'class': 'form-control code text-dark',
                 'row': 10,
                 }), 
         }

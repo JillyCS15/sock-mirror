@@ -190,10 +190,18 @@
           <form action="{% url 'pattern:add-shacl-pattern' %}" method=POST>
             {% csrf_token %}
             {% for field in shacl_pattern_form %}
+              {% if field.label == 'Shacl pattern' %}
+              <div class="mb-3 d-flex flex-column">
+                <label class="form-label details text-dark fw-bolder">{{ field.label }}</label>
+                <div class="details text-secondary mb-2">Press <b>Shift</b> + <b>Tab</b> for indentation</div>
+                {{ field }}
+              </div>
+              {% else %}
               <div class="mb-3 d-flex flex-column">
                 <label class="form-label details text-dark fw-bolder">{{ field.label }}</label>
                 {{ field }}
               </div>
+              {% endif %}
             {% endfor %}
             <div class="d-flex">
               <button type="button" class="btn btn-outline-danger button-font me-auto" data-bs-dismiss="modal">Cancel</button>
@@ -208,8 +216,11 @@
 
 {% block script %}
   <script>
-    //Get the button:
-    topButton = document.getElementById("back-to-top");
+    // Get the button:
+    const topButton = document.getElementById("back-to-top");
+
+    // Get SHACL pattern text area
+    const textarea = document.getElementById('id_shacl_pattern');
 
     // When the user scrolls down 900px from the top of the document, show the button
     window.onscroll = function() {scrollFunction()};
@@ -227,5 +238,19 @@
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
+
+    // Enable shift
+    textarea.addEventListener('keydown', (e) => {
+      if (e.shiftKey && e.keyCode == 9) {
+        e.preventDefault();
+
+        textarea.setRangeText(
+          '\t',
+          textarea.selectionStart,
+          textarea.selectionStart,
+          'end'
+        )
+      }
+    });
   </script>
 {% endblock script %}
