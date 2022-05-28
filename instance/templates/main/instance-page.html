@@ -49,36 +49,39 @@
           <div class="row">
             <div class="col col-lg-6">
               <div class="d-flex flex-column">
-                <div>
-                  <div class="btn-group mb-3" style="width: 100%;">
-                    <button class="btn btn-secondary dropdown-toggle details fw-bolder"  type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                      Select Pattern
-                    </button>
-                    <ul class="dropdown-menu" style="width: 100%;">
-                      <li><div class="dropdown-header details text-dark fw-bolder">Class Completeness</div></li>
-                      <li><a class="dropdown-item details" onclick="change_text('Test\tTest')">Pattern 1</a></li>
-                      <li><a class="dropdown-item details" href="#">Pattern 2</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><div class="dropdown-header details text-dark fw-bolder">Entity Completeness</div></li>
-                      <li><a class="dropdown-item details" href="#">Pattern 3</a></li>
-                      <li><a class="dropdown-item details" href="#">Pattern N</a></li>
-                    </ul>
+                <div class="mb-3">
+                  <label class="form-label details text-dark fw-bolder">SHACL pattern</label>
+                  <select name="shacl_pattern" class="form-select details text-secondary" required id="id_shacl_pattern">
+                    {% for shacl_pattern in shacl_patterns %}
+                    <option value="{{ shacl_pattern.id }}">{{ shacl_pattern.pattern_class.name }} - {{shacl_pattern.code}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label details text-dark fw-bolder">SHACL pattern description</label>
+                  <div id="shacl_pattern_desc" class="details text-justify mb-2">
+                    -
                   </div>
                 </div>
-                <!-- <textarea class="code" rows="15">
-hello
-                </textarea> -->
+                <div class="mb-3">
+                  <label class="form-label details text-dark fw-bolder">SHACL shapes</label>
+                  <div class="details text-secondary mb-2">Press <b>Shift</b> + <b>Tab</b> for indentation</div>
+                  {{ pattern_instance_form.shacl_shapes }}
+                </div>
               </div>
             </div>
             <div class="col col-lg-6">
               <div class="mb-3">
-                <label class="form-label details text-dark fw-bolder">Instance Name</label>
-                <input type="text" class="form-control details text-secondary" placeholder="name@example.com">
+                <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.name.label }}</label>
+                {{ pattern_instance_form.name }}
               </div>
               <div class="mb-3">
-                <label class="form-label details text-dark fw-bolder mb-1">Example textarea</label>
-                <div class="details text-secondary mb-2">Press <b>Shift</b> + <b>Tab</b> for indentation</div>
-                <textarea class="form-control code" id="shacl-text" rows="15"></textarea>
+                <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.creator.label }}</label>
+                {{ pattern_instance_form.creator }}
+              </div>
+              <div class="mb-3">
+                <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.description.label }}</label>
+                {{ pattern_instance_form.description }}
               </div>
             </div>
           </div>
@@ -133,13 +136,23 @@ hello
 {% endblock content %}
 
 {% block script %}
-  <script>
+  {% autoescape off %}
+  <script type="text/javascript">
+
     // source: https://benborgers.com/posts/textarea-tab
-    const textarea = document.getElementById('shacl-text')
+    const textarea = document.getElementById('id_shacl_shapes');
+    const shacl_pattern_select = document.getElementById('id_shacl_pattern');
+    const shacl_pattern_desc = document.getElementById('shacl_pattern_desc');
+    var data = {{ shacl_patterns_data }};
+
+    shacl_pattern_select.addEventListener('change', function() {
+      shacl_pattern_desc.textContent = data[this.value]['description'];
+      textarea.value = data[this.value]['shacl_pattern'];
+    });
 
     textarea.addEventListener('keydown', (e) => {
       if (e.shiftKey && e.keyCode == 9) {
-        e.preventDefault()
+        e.preventDefault();
 
         textarea.setRangeText(
           '\t',
@@ -148,12 +161,7 @@ hello
           'end'
         )
       }
-    })
-
-    // TODO: copy pattern to textarea
-    const change_text = (val) => {
-      console.log("masuk :)")
-      textarea.value = val;
-    }
+    });
   </script>
+  {% endautoescape %}
 {% endblock script %}
