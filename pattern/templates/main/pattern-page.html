@@ -40,11 +40,11 @@
           </svg>
           <div class="button-font">Add Pattern</div>
         </div> -->
-        <a type="button" class="btn btn-primary button-font d-flex align-self-start align-items-center mb-5">
+        <a type="button" class="btn btn-primary button-font d-flex align-self-start align-items-center mb-5" data-bs-toggle="modal" data-bs-target="#modal-form-class">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
           </svg>
-          <div class="button-font" data-bs-toggle="modal" data-bs-target="#modal-form-class">Add Pattern</div>
+          <div class="button-font">Add Pattern</div>
         </a>
       {% endif %}
         <nav class="navbar navbar-expand-lg navbar-light bg-light border border-dark rounded">
@@ -74,11 +74,11 @@
           <div class="d-flex d-flex align-items-center pt-5">
             <div class="heading me-auto">{{ pattern.0.name }}</div>
             {% if is_admin %}
-              <a type="button" class="btn btn-primary button-font d-flex align-items-center">
+              <a type="button" class="btn btn-primary button-font d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-shacl">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus me-2" viewBox="0 0 16 16">
                   <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                 </svg>
-                <div class="button-font" data-bs-toggle="modal" data-bs-target="#modal-form">Add</div>
+                <div class="button-font">Add</div>
               </a>
             {% endif %}
           </div>
@@ -179,7 +179,7 @@
 
 
   <!-- Modal Form | Add New SHACL Pattern -->
-  <div class="modal fade" id="modal-form" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="modal-form-shacl" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
