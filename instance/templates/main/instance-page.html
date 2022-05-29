@@ -42,53 +42,56 @@
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <div class="modal-title subtitle fw-bold" id="exampleModalLabel">Create a New Instance</div>
+          <div class="modal-title subtitle fw-bold" id="exampleModalLabel">Create a New Pattern Instance</div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col col-lg-6">
-              <div class="d-flex flex-column">
+          <form action="{% url 'instance:add-pattern-instance' %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col col-lg-6">
                 <div class="mb-3">
-                  <label class="form-label details text-dark fw-bolder">SHACL pattern</label>
-                  <select name="shacl_pattern" class="form-select details text-secondary" required id="id_shacl_pattern">
-                    {% for shacl_pattern in shacl_patterns %}
-                    <option value="{{ shacl_pattern.id }}">{{ shacl_pattern.pattern_class.name }} - {{shacl_pattern.code}}</option>
-                    {% endfor %}
-                  </select>
+                  <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.name.label }}</label>
+                  {{ pattern_instance_form.name }}
                 </div>
                 <div class="mb-3">
-                  <label class="form-label details text-dark fw-bolder">SHACL pattern description</label>
-                  <div id="shacl_pattern_desc" class="details text-justify mb-2">
-                    -
+                  <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.creator.label }}</label>
+                  {{ pattern_instance_form.creator }}
+                </div>
+                <div class="mb-3">
+                  <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.description.label }}</label>
+                  {{ pattern_instance_form.description }}
+                </div>
+              </div>
+              <div class="col col-lg-6">
+                <div class="d-flex flex-column">
+                  <div class="mb-3">
+                    <label class="form-label details text-dark fw-bolder">SHACL pattern</label>
+                    <select name="shacl_pattern" class="form-select details text-secondary" required id="id_shacl_pattern">
+                      {% for shacl_pattern in shacl_patterns %}
+                      <option value="{{ shacl_pattern.id }}">{{ shacl_pattern.pattern_class.name }} - {{shacl_pattern.code}}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label details text-dark fw-bolder">SHACL pattern description</label>
+                    <div id="shacl_pattern_desc" class="details text-justify mb-2">
+                      -
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label details text-dark fw-bolder">SHACL shapes</label>
+                    <div class="details text-secondary mb-2">Press <b>Shift</b> + <b>Tab</b> for indentation</div>
+                    {{ pattern_instance_form.shacl_shapes }}
                   </div>
                 </div>
-                <div class="mb-3">
-                  <label class="form-label details text-dark fw-bolder">SHACL shapes</label>
-                  <div class="details text-secondary mb-2">Press <b>Shift</b> + <b>Tab</b> for indentation</div>
-                  {{ pattern_instance_form.shacl_shapes }}
-                </div>
               </div>
             </div>
-            <div class="col col-lg-6">
-              <div class="mb-3">
-                <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.name.label }}</label>
-                {{ pattern_instance_form.name }}
-              </div>
-              <div class="mb-3">
-                <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.creator.label }}</label>
-                {{ pattern_instance_form.creator }}
-              </div>
-              <div class="mb-3">
-                <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.description.label }}</label>
-                {{ pattern_instance_form.description }}
-              </div>
+            <div class="d-flex">
+              <button type="button" class="btn btn-outline-danger button-font me-auto" data-bs-dismiss="modal">Cancel</button>
+              <input type="submit" value="Create" class="btn btn-primary button-font" />
             </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger button-font" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary button-font">Create</button>
+          </form>
         </div>
       </div>
     </div>
@@ -110,27 +113,29 @@
       </div>
 
       <!-- Result -->
-      <div class="card p-4">
-        <div class="card-body row p-0 mb-3">
-          <div class="col col-lg-10">
-            <div class="subtitle fw-bolder mb-2">Dummy Instance</div>
-            <div class="details text-truncate pe-5 mb-2">
-              {% lorem %}
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for instance in pattern_instances %}
+        <div class="col">
+          <div class="card p-4 mb-3 h-100">
+            <div class="card-body row p-0">
+              <div class="col col-lg-9">
+                <div class="subtitle fw-bolder mb-2">{{ instance.name }}</div>
+                <div class="details text-truncate pe-5 mb-2">
+                  {{ instance.description }}
+                </div>
+                <span class="badge rounded-pill bg-warning text-dark mb-2">{{ instance.shacl_pattern.pattern_class.name }}</span>
+              </div>
+              <div class="col col-lg-2 d-flex justify-content-center align-self-center">
+                <a class="btn btn-primary button-font" href="{% url 'instance:show-pattern-instance-detail' instance.id %}" role="button">
+                  Details
+                </a>
+              </div>
             </div>
-            <span class="badge rounded-pill bg-warning text-dark mb-2">Class Completeness</span>
-          </div>
-          <div class="col col-lg-2 d-flex justify-content-center align-self-center">
-            <button class="btn btn-primary button-font" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              Details
-            </button>
           </div>
         </div>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body bg-light">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
-          </div>
-        </div>
+        {% endfor %}
       </div>
+
     </div>
   </div>
 {% endblock content %}

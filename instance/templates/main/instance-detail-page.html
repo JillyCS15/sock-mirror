@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>SoCK | Instance Pattern</title>
+{% endblock meta %}
+
+{% block navbar %}
+  <li class="nav-item">
+	<a class="nav-link navbar-font mx-2"  href="{% url 'main:home' %}">Home</a>
+  </li>
+  <li class="nav-item">
+	<a class="nav-link navbar-font mx-2" href="{% url 'pattern:pattern' %}">Patterns</a>
+  </li>
+  <li class="nav-item">
+	<a class="nav-link active navbar-font mx-2" aria-current="page" href="#">Instances</a>
+  </li>
+  <li class="nav-item">
+	<a class="nav-link navbar-font mx-2" href="{% url 'usecase:usecase' %}">Use Cases</a>
+  </li>
+{% endblock navbar %}
+
+{% block content %}
+  <!-- Intro -->
+  <div class="min-vh-100" id="intro">
+		<div class="container"> 
+			<div class="d-flex flex-column pt-5">
+				<div class="fw-bold main-title pt-5 text-center">{{ pattern_instance.name }}</div>
+				<hr class="mb-3">
+				<div class="row">
+					<div class="col col-lg-6 col-md-12">
+						<div class="mb-3">
+							<div class="subtitle fw-bold mb-2">Description</div>
+							<div class="details">{{ pattern_instance.description }}</div>
+						</div>
+						<div class="mb-3">
+							<div class="subtitle fw-bold mb-2">Creator</div>
+							<div class="details">{{ pattern_instance.creator }}</div>
+						</div>
+						<div class="mb-3">
+							<div class="subtitle fw-bold mb-2">Date Created</div>
+							<div class="details">{{ pattern_instance.created_at }}</div>
+						</div>
+					</div>
+					<div class="col col-lg-6 col-md-12">
+						<div class="mb-3">
+							<div class="subtitle fw-bold mb-2">SHACL Pattern</div>
+							<div class="details">{{ pattern_instance.shacl_pattern.pattern_class.name }} - {{ pattern_instance.shacl_pattern.code}}</div>
+						</div>
+						<div class="mb-3">
+							<div class="subtitle fw-bold mb-2">SHACL Shapes</div>
+							<textarea class="code text-dark" rows="12" readonly>
+{{ pattern_instance.shacl_shapes }}
+							</textarea>
+						</div>
+						<div class="mb-3">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

@@ -2,7 +2,7 @@ from django.core import serializers
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import PatternInstanceForm
-from .models import SHACLPattern
+from .models import SHACLPattern, PatternInstance
 
 
 def instance_page(request):
@@ -13,6 +13,9 @@ def instance_page(request):
 
     # Get Pattern Forms
     pattern_instance_form = PatternInstanceForm
+
+    # Get all Pattern Instances
+    pattern_instances = PatternInstance.objects.all()
 
     # Get all SHACL Patterns
     shacl_patterns = SHACLPattern.objects.all()
@@ -28,6 +31,7 @@ def instance_page(request):
         "pattern_instance_form": pattern_instance_form,
         "shacl_patterns": shacl_patterns,
         "shacl_patterns_data": shacl_pattern_dict,
+        "pattern_instances": pattern_instances,
         }
     return render(request, 'main/instance-page.html', context)
 
@@ -36,6 +40,7 @@ def add_pattern_instance(request):
     if request.method == "POST":
         form = PatternInstanceForm(request.POST)
         if form.is_valid():
+            # TODO: check shacl shapes if it is a valid shape
             form.save()
             message = "Successfully created a new pattern instance."
             messages.success(request, message)
@@ -44,3 +49,12 @@ def add_pattern_instance(request):
         messages.error(request, message)
         return redirect('instance:instance')
     return redirect('instance:instance')
+
+
+# TODO: add show pattern instance detail
+def show_pattern_instance_detail(request, pattern_instance_id):
+    pattern_instance = PatternInstance.objects.get(id=pattern_instance_id)
+    context = {
+        "pattern_instance": pattern_instance,
+        }
+    return render(request, 'main/instance-detail-page.html', context)
