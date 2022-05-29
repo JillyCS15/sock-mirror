@@ -1,6 +1,7 @@
-from django.core import serializers
-from django.shortcuts import render, redirect
+from urllib import response
 from django.contrib import messages
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from .forms import PatternInstanceForm
 from .models import SHACLPattern, PatternInstance
 
@@ -51,10 +52,18 @@ def add_pattern_instance(request):
     return redirect('instance:instance')
 
 
-# TODO: add show pattern instance detail
 def show_pattern_instance_detail(request, pattern_instance_id):
     pattern_instance = PatternInstance.objects.get(id=pattern_instance_id)
     context = {
         "pattern_instance": pattern_instance,
         }
     return render(request, 'main/instance-detail-page.html', context)
+
+
+def download_pattern_instance(request, pattern_instance_id):
+    pattern_instance = PatternInstance.objects.get(id=pattern_instance_id)
+
+    response = HttpResponse(pattern_instance.shacl_shapes, content_type='text/plain')
+    response['Content-Disposition'] = f'attachment; filename={pattern_instance.name}.ttl'
+
+    return response
