@@ -49,12 +49,12 @@
 						</div>
 						<div class="mb-3">
 							<div class="subtitle fw-bold mb-2">SHACL Shapes</div>
-							<textarea class="code text-dark" rows="12" readonly>
+							<textarea class="code text-dark" rows="12" readonly id="shacl_shapes">
 {{ pattern_instance.shacl_shapes }}
 							</textarea>
 						</div>
 						<div class="d-flex justify-content-end mb-3">
-							<button type="button" class="btn btn-outline-secondary button-font me-3">
+							<button type="button" id="copy" class="btn btn-outline-secondary button-font me-3">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-clipboard2" viewBox="0 0 16 16">
 								  <path d="M3.5 2a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5H12a.5.5 0 0 1 0-1h.5A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1H4a.5.5 0 0 1 0 1h-.5Z"/>
 								  <path d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z"/>
@@ -77,5 +77,21 @@
 {% endblock content %}
 
 {% block script %}
+	<script type="text/javascript">
+		const copy = document.getElementById('copy');
 
+		// source:https://stackoverflow.com/questions/68461280/copy-text-from-textarea-to-clipboard-python
+		copy.addEventListener('click', function() {
+			const textarea = document.getElementById('shacl_shapes');
+			let clip = navigator.clipboard;
+			if (clip === undefined) {
+				console.log(
+					"Upgrade your browser to use the clipboard feature.",
+				);
+			} else {
+				navigator.clipboard.writeText(textarea.value);
+
+			}
+    });
+	</script>
 {% endblock script %}
