@@ -14,8 +14,8 @@ def instance_page(request):
     # Get Pattern Forms
     pattern_instance_form = PatternInstanceForm
 
-    # Get all Pattern Instances
-    pattern_instances = PatternInstance.objects.all()
+    query = request.GET.get('query', '')
+    pattern_instances = PatternInstance.objects.filter(name__icontains=query)
 
     # Get all SHACL Patterns
     shacl_patterns = SHACLPattern.objects.all()
