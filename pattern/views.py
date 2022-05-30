@@ -24,8 +24,9 @@ def pattern_page(request):
     context = {
         "is_admin": is_admin,
         "patterns": result_list,
+        "class_patterns": pattern_list,
         "class_pattern_form": class_pattern_form,
-        "shacl_pattern_form": shacl_pattern_form
+        "shacl_pattern_form": shacl_pattern_form,
         }
     return render(request, 'main/pattern-page.html', context)
 

@@ -49,7 +49,7 @@
           <form action="{% url 'instance:add-pattern-instance' %}" method="POST">
             {% csrf_token %}
             <div class="row">
-              <div class="col col-lg-6">
+              <div class="col col-md-12 col-lg-6">
                 <div class="mb-3">
                   <label class="form-label details text-dark fw-bolder">{{ pattern_instance_form.name.label }}</label>
                   {{ pattern_instance_form.name }}
@@ -63,11 +63,12 @@
                   {{ pattern_instance_form.description }}
                 </div>
               </div>
-              <div class="col col-lg-6">
+              <div class="col col-md-12 col-lg-6">
                 <div class="d-flex flex-column">
                   <div class="mb-3">
                     <label class="form-label details text-dark fw-bolder">SHACL pattern</label>
-                    <select name="shacl_pattern" class="form-select details text-secondary" required id="id_shacl_pattern">
+                    <select name="shacl_pattern" class="form-select details text-dark" required id="id_shacl_pattern">
+                      <option selected disabled>Choose SHACL pattern</option>
                       {% for shacl_pattern in shacl_patterns %}
                       <option value="{{ shacl_pattern.id }}">{{ shacl_pattern.pattern_class.name }} - {{shacl_pattern.code}}</option>
                       {% endfor %}
@@ -75,7 +76,7 @@
                   </div>
                   <div class="mb-3">
                     <label class="form-label details text-dark fw-bolder">SHACL pattern description</label>
-                    <div id="shacl_pattern_desc" class="details text-justify mb-2">
+                    <div id="shacl_pattern_desc" class="details text-dark text-justify mb-2">
                       -
                     </div>
                   </div>

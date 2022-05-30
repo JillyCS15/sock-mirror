@@ -196,6 +196,16 @@
                 <div class="details text-secondary mb-2">Press <b>Shift</b> + <b>Tab</b> for indentation</div>
                 {{ field }}
               </div>
+              {% elif field.label == 'Pattern class' %}
+              <div class="mb-3 d-flex flex-column">
+                <label class="form-label details text-dark fw-bolder">{{ field.label }}</label>
+                <select name="pattern_class" class="form-select details text-dark" required id="id_pattern_class">
+                  <option selected disabled>Choose pattern class</option>
+                  {% for pattern in class_patterns %}
+                  <option value="{{ pattern.id }}">{{ pattern.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
               {% else %}
               <div class="mb-3 d-flex flex-column">
                 <label class="form-label details text-dark fw-bolder">{{ field.label }}</label>

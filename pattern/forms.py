@@ -48,5 +48,6 @@ class SHACLPatternForm(ModelForm):
             'shacl_pattern': forms.Textarea(attrs={
                 'class': 'form-control code text-dark',
                 'row': 10,
+                'wrap': 'off',
                 }), 
         }
