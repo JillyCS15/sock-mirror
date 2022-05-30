@@ -12,9 +12,9 @@ def pattern_page(request):
 
     # query all pattern class and their SHACL patterns
     result_list = []
-    pattern_list = ClassPattern.objects.all()
+    pattern_list = ClassPattern.objects.all().order_by('order')
     for pattern in pattern_list:
-        shacl_pattern = SHACLPattern.objects.filter(pattern_class_id=pattern.id)
+        shacl_pattern = SHACLPattern.objects.filter(pattern_class_id=pattern.id).order_by('order')
         result_list.append([pattern, shacl_pattern])
 
     # Get Pattern Forms

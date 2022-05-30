@@ -18,6 +18,9 @@ class ClassPatternForm(ModelForm):
                 'class': 'form-control details text-dark',
                 'row': 4,
                 }),
+            'order': forms.NumberInput(attrs={
+                'class': 'form-control details text-dark',
+                }),
         }
 
 
@@ -30,7 +33,10 @@ class SHACLPatternForm(ModelForm):
         widgets = {
             'pattern_class': forms.Select(attrs={
                 'class': 'form-select details text-dark',
-                }),            
+                }),  
+			'order': forms.NumberInput(attrs={
+                'class': 'form-control details text-dark',
+                }),          
             'code': forms.TextInput(attrs={
                 'maxlength': 10,
                 'class': 'form-control details text-dark',
