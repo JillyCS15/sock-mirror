@@ -149,10 +149,32 @@
     const shacl_pattern_select = document.getElementById('id_shacl_pattern');
     const shacl_pattern_desc = document.getElementById('shacl_pattern_desc');
     var data = {{ shacl_patterns_data }};
+    const prefixes = `@prefix : <http://example.org/ns#> .
+@prefix dash: <http://datashapes.org/dash#> .
+@prefix dbc: <http://dbpedia.org/resource/Category:> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbp: <http://dbpedia.org/property/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <http://example.org/ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sock: <https://cs.ui.ac.id/ns/sock#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+
+`;
 
     shacl_pattern_select.addEventListener('change', function() {
       shacl_pattern_desc.textContent = data[this.value]['description'];
-      textarea.value = data[this.value]['shacl_pattern'];
+      textarea.value = prefixes + data[this.value]['shacl_pattern'];
     });
 
     textarea.addEventListener('keydown', (e) => {

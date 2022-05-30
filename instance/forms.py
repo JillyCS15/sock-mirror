@@ -28,5 +28,6 @@ class PatternInstanceForm(ModelForm):
             'shacl_shapes': forms.Textarea(attrs={
                 'class': 'form-control code text-dark',
                 'rows': 10,
+                'wrap': 'off',
                 }),
         }
