@@ -25,7 +25,7 @@
   <div class="min-vh-100" id="intro">
 		<div class="container"> 
 			<div class="d-flex flex-column pt-5">
-				<div class="fw-bold main-title pt-5 text-center">{{ pattern_instance.name }}</div>
+				<div class="fw-bold heading pt-5 text-center">{{ pattern_instance.name }}</div>
 				<hr class="mb-3">
 				<div class="row">
 					<div class="col col-lg-6 col-md-12">
@@ -39,7 +39,7 @@
 						</div>
 						<div class="mb-3">
 							<div class="subtitle fw-bold mb-2">Date Created</div>
-							<div class="details">{{ pattern_instance.created_at }}</div>
+							<div class="details">{{ pattern_instance.created_at|date:"l F, jS o" }}</div>
 						</div>
 					</div>
 					<div class="col col-lg-6 col-md-12">
@@ -66,7 +66,7 @@
 									<path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
 									<path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
 								</svg>
-								Dowload as TTL
+								Download as TTL
 							</a>
 						</div>
 					</div>
