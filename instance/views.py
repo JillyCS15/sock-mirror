@@ -64,6 +64,7 @@ def download_pattern_instance(request, pattern_instance_id):
     pattern_instance = PatternInstance.objects.get(id=pattern_instance_id)
 
     response = HttpResponse(pattern_instance.shacl_shapes, content_type='text/plain')
-    response['Content-Disposition'] = f'attachment; filename={pattern_instance.name}.ttl'
+    filename = f"{pattern_instance.name}-shapes.ttl"
+    response['Content-Disposition'] = f'attachment; filename={filename}'
 
     return response
