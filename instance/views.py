@@ -1,9 +1,9 @@
-from urllib import response
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import PatternInstanceForm
 from .models import SHACLPattern, PatternInstance
+from rdflib import Graph
 
 
 def instance_page(request):
@@ -42,11 +42,17 @@ def add_pattern_instance(request):
     if request.method == "POST":
         form = PatternInstanceForm(request.POST)
         if form.is_valid():
-            # TODO: check shacl shapes if it is a valid shape
-            form.save()
-            message = "Successfully created a new pattern instance."
-            messages.success(request, message)
-            return redirect('instance:instance')
+            try:
+                shacl_shapes = form.cleaned_data['shacl_shapes']
+                Graph().parse(data=shacl_shapes)
+                form.save()
+                message = "Successfully created a new pattern instance."
+                messages.success(request, message)
+                return redirect('instance:instance')
+            except:
+                message = "Invalid SHACL shapes!"
+                messages.error(request, message)
+                return redirect('instance:instance')
         message = "There is an error in data input."
         messages.error(request, message)
         return redirect('instance:instance')
