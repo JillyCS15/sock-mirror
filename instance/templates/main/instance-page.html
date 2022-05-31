@@ -114,28 +114,40 @@
       </form>
 
       <!-- Result -->
-      <div class="row row-cols-1 row-cols-md-2 g-4">
-        {% for instance in pattern_instances %}
-        <div class="col">
-          <div class="card p-4 mb-3 h-100">
-            <div class="card-body row p-0">
-              <div class="col col-lg-9">
-                <div class="subtitle fw-bolder mb-2">{{ instance.name }}</div>
-                <div class="details text-truncate pe-5 mb-2">
-                  {{ instance.description }}
+      {% if pattern_instances %}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          {% for instance in pattern_instances %}
+          <div class="col">
+            <div class="card p-4 mb-3 h-100">
+              <div class="card-body row p-0">
+                <div class="col col-lg-9">
+                  <div class="subtitle fw-bolder mb-2">{{ instance.name }}</div>
+                  <div class="details text-truncate pe-5 mb-2">
+                    {{ instance.description }}
+                  </div>
+                  <span class="badge rounded-pill bg-warning text-dark mb-2">{{ instance.shacl_pattern.pattern_class.name }}</span>
                 </div>
-                <span class="badge rounded-pill bg-warning text-dark mb-2">{{ instance.shacl_pattern.pattern_class.name }}</span>
-              </div>
-              <div class="col col-lg-2 d-flex justify-content-center align-self-center">
-                <a class="btn btn-primary button-font" href="{% url 'instance:show-pattern-instance-detail' instance.id %}" role="button">
-                  Details
-                </a>
+                <div class="col col-lg-2 d-flex justify-content-center align-self-center">
+                  <a class="btn btn-primary button-font" href="{% url 'instance:show-pattern-instance-detail' instance.id %}" role="button">
+                    Details
+                  </a>
+                </div>
               </div>
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
+      {% else %}
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="heading text-center">Oh, no! Sorry</div>
+        <div class="subtitle fw-bold text-center text-dark mb-4">We could not find any results for "{{ query }}"</div>
+        <div class="details fw-bold text-center">Search Tips:</div>
+        <div class="details text-center">Make sure the word you typed correctly</div>
+        <div class="details text-center">Try using similar keywords</div>
+        <div class="details text-center">Keep your keyword simple for a wider results</div>
       </div>
+      {% endif %}
+
 
     </div>
   </div>

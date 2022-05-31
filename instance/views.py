@@ -33,6 +33,7 @@ def instance_page(request):
         "shacl_patterns": shacl_patterns,
         "shacl_patterns_data": shacl_pattern_dict,
         "pattern_instances": pattern_instances,
+        "query": query,
         }
     return render(request, 'main/instance-page.html', context)
 
