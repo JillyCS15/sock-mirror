@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import PatternInstanceForm
 from .models import SHACLPattern, PatternInstance
-from rdflib import Graph
+# from rdflib import Graph
 
 
 def instance_page(request):
@@ -43,8 +43,8 @@ def add_pattern_instance(request):
         form = PatternInstanceForm(request.POST)
         if form.is_valid():
             try:
-                shacl_shapes = form.cleaned_data['shacl_shapes']
-                Graph().parse(data=shacl_shapes)
+                # shacl_shapes = form.cleaned_data['shacl_shapes']
+                # Graph().parse(data=shacl_shapes)
                 form.save()
                 message = "Successfully created a new pattern instance."
                 messages.success(request, message)
