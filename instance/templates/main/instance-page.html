@@ -130,7 +130,7 @@
 
       <!-- Result -->
       {% if pattern_instances %}
-        <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
           {% for instance in pattern_instances %}
           <div class="col">
             <div class="card p-4 mb-3 h-100">
@@ -152,6 +152,50 @@
           </div>
           {% endfor %}
         </div>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            {% if pattern_instances.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ pattern_instances.previous_page_number }}">
+                Prev
+              </a>
+            </li>
+            {% if pattern_instances.previous_page_number != 1 %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ pattern_instances.previous_page_number }}">
+                {{ pattern_instances.previous_page_number }}
+              </a>
+            </li>
+            {% endif %}
+            {% endif %}
+
+            <li class="page-item active">
+              <span class="page-link" href="#">
+                {{ pattern_instances.number }}
+              </span>
+            </li>
+
+            {% if pattern_instances.has_next %}
+            {% if pattern_instances.next_page_number != pattern_instances.paginator.num_pages  %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ pattern_instances.next_page_number }}">
+                {{ pattern_instances.next_page_number }}
+              </a>
+            </li>
+            {% endif %}
+
+            <li class="page-item">
+              <a class="page-link" href="?page={{ pattern_instances.next_page_number }}">
+                Next
+              </a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ pattern_instances.paginator.num_pages }}">Last &raquo;</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
       {% else %}
       <div class="d-flex flex-column justify-content-center align-items-center">
         <div class="heading text-center">Oh, no! Sorry</div>

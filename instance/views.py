@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import PatternInstanceForm
@@ -15,9 +16,6 @@ def instance_page(request):
     # Get Pattern Forms
     pattern_instance_form = PatternInstanceForm
 
-    query = request.GET.get('query', '')
-    pattern_instances = PatternInstance.objects.filter(name__icontains=query)
-
     # Get all SHACL Patterns
     shacl_patterns = SHACLPattern.objects.all()
     shacl_pattern_dict = dict()
@@ -27,12 +25,20 @@ def instance_page(request):
         data['shacl_pattern'] = shacl_pattern.shacl_pattern
         shacl_pattern_dict[shacl_pattern.id] = data
 
+    # Get all pattern instances from certain query
+    query = request.GET.get('query', '')
+    pattern_instances = PatternInstance.objects.filter(name__icontains=query).order_by('id')
+
+    # Set up pagination
+    paginator = Paginator(pattern_instances, 10)
+    page = request.GET.get('page', 1)
+
     context = {
         "is_admin": is_admin,
         "pattern_instance_form": pattern_instance_form,
         "shacl_patterns": shacl_patterns,
         "shacl_patterns_data": shacl_pattern_dict,
-        "pattern_instances": pattern_instances,
+        "pattern_instances": paginator.get_page(page),
         "query": query,
         }
     return render(request, 'main/instance-page.html', context)
