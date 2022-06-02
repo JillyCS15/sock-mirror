@@ -29,7 +29,16 @@
 				<div class="subtitle mb-5 text-justify">
 					{% lorem %}
 				</div>
-				<iframe class="align-self-center" src="#" width="600" height="400"></iframe>
+        <iframe
+          src="{% static 'pdf/SoCK Use Cases Analysis.pdf' %}"
+          class="min-vh-100 mb-3"
+        >
+          <p>
+            Your browser does not support PDFs.
+            <a href="{% static 'pdf/SoCK Use Cases Analysis.pdf' %}">Download the PDF</a>
+            .
+          </p>
+        </iframe>
 			</div>
     </div>
   </div>
