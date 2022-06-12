@@ -133,6 +133,7 @@
 
       <!-- Result -->
       {% if pattern_instances %}
+        <div class="subtitle fw-bold text-center text-dark mb-4">Here is the results for "{{ query }}"</div>
         <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
           {% for instance in pattern_instances %}
           <div class="col">
@@ -246,6 +247,10 @@
 @prefix wdt: <http://www.wikidata.org/prop/direct/> .
 
 `;
+
+    if (window.location.href.indexOf("?query") != -1) {
+      document.getElementById("list-instances").scrollIntoView();
+    }
 
     shacl_pattern_select.addEventListener('change', function() {
       shacl_pattern_desc.textContent = data[this.value]['description'];
