@@ -133,7 +133,7 @@
 
       <!-- Result -->
       {% if pattern_instances %}
-        <div class="subtitle fw-bold text-center text-dark mb-4">Here is the results for "{{ query }}"</div>
+        <div class="subtitle fw-bold text-center text-dark mb-4" id="result-text" hidden>Here is the results for "{{ query }}"</div>
         <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
           {% for instance in pattern_instances %}
           <div class="col">
@@ -203,7 +203,7 @@
       {% else %}
       <div class="d-flex flex-column justify-content-center align-items-center">
         <div class="heading text-center">Oh, no! Sorry</div>
-        <div class="subtitle fw-bold text-center text-dark mb-4">We could not find any results for "{{ query }}"</div>
+        <div class="subtitle fw-bold text-center text-dark mb-4" id="result-text" hidden>We could not find any results for "{{ query }}"</div>
         <div class="details fw-bold text-center">Search Tips:</div>
         <div class="details text-center">Make sure the word you typed correctly</div>
         <div class="details text-center">Try using similar keywords</div>
@@ -250,6 +250,7 @@
 
     if (window.location.href.indexOf("?query") != -1) {
       document.getElementById("list-instances").scrollIntoView();
+      document.getElementById("result-text").hidden = false;
     }
 
     shacl_pattern_select.addEventListener('change', function() {
