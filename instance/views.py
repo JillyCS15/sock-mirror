@@ -17,7 +17,7 @@ def instance_page(request):
     pattern_instance_form = PatternInstanceForm
 
     # Get all SHACL Patterns
-    shacl_patterns = SHACLPattern.objects.all()
+    shacl_patterns = SHACLPattern.objects.all().order_by('id')
     shacl_pattern_dict = dict()
     for shacl_pattern in shacl_patterns:
         data = dict()
