@@ -253,6 +253,10 @@
       document.getElementById("result-text").hidden = false;
     }
 
+    if (window.location.href.indexOf("?page") != -1) {
+      document.getElementById("list-instances").scrollIntoView();
+    }
+
     shacl_pattern_select.addEventListener('change', function() {
       shacl_pattern_desc.textContent = data[this.value]['description'];
       textarea.value = prefixes + data[this.value]['shacl_pattern'];
